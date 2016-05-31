@@ -15,11 +15,9 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    UMCBI.cpp
+        mainwindow.cpp
 
 HEADERS  += mainwindow.h \
-    UMCBI.h \
     ui_mainwindow.h
 
 FORMS    += mainwindow.ui

@@ -13,7 +13,31 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QTextEdit" name="textEdit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>381</width>
+      <height>101</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QAxWidget" name="mcbConn">
+    <property name="control" stdset="0">
+     <string>{731b1f14-c7bf-46cb-8c20-b03802871e6e}</string>
+    </property>
+    <property name="geometry" stdset="0">
+     <rect>
+      <x>110</x>
+      <y>170</y>
+      <width>80</width>
+      <height>70</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -59,6 +83,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QAxWidget</class>
+   <extends>QWidget</extends>
+   <header>qaxwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
