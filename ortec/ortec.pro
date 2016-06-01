@@ -15,12 +15,20 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    logdialog.cpp \
+    getdatathread.cpp
 
 HEADERS  += mainwindow.h \
-    ui_mainwindow.h
+    ui_mainwindow.h \
+    logdialog.h \
+    getdatathread.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    logdialog.ui
 
 INCLUDEPATH += "C:/Program Files (x86)/Windows Kits/10/Include/10.0.10240.0/ucrt"
 LIBS += -L"C:\Program Files (x86)\Windows Kits\10\Lib\10.0.10240.0\ucrt\x86"
+
+RESOURCES += \
+    resource.qrc
