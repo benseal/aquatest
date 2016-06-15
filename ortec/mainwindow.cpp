@@ -9,8 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
     m_isDevOpen = false;
     ui->actionLog->setDisabled(true);
     m_logDlg = new LogDialog(this);
+    m_log = new Log();
 
     ui->actionLog->setStatusTip("Start log");
+    m_dataThread.setMCB(ui->mcbConn);
     connect(&this->m_dataThread, SIGNAL(TestSignal(QString)), this, SLOT(setStatusBarMessage(QString)));
 }
 
@@ -20,6 +22,7 @@ MainWindow::~MainWindow()
         ui->mcbConn->dynamicCall("Close()");
         m_isDevOpen = false;
     }
+    delete m_log;
     delete ui;
 }
 
@@ -29,8 +32,6 @@ void MainWindow::setStatusBarMessage(QString msg){
 
 void MainWindow::on_actionConnect_triggered()
 {
-    //m_conn.SetAddress("#l");
-    //m_conn.Open();
     if(!m_isDevOpen){
         QString addr;
         addr.append("#1");
@@ -40,21 +41,13 @@ void MainWindow::on_actionConnect_triggered()
         ui->actionConnect->setText("disconnect");
         ui->actionLog->setEnabled(true);
     }else{
+        m_log->save("test.log");
         ui->mcbConn->dynamicCall("Close()");
         m_isDevOpen = false;
         ui->actionConnect->setText("connect");
         ui->actionLog->setDisabled(true);
     }
 
-//    QVariant vaData = ui->mcbConn->dynamicCall("GetData(Qint64, Qint64)", 0, 100 );
-//    QString str = "";
-//    QList<QVariant> l = vaData.toList();
-//    for (int i = 0; i < l.length(); i++ ){
-//        QString tmp = "";
-//        tmp.sprintf("%d:%d\n", i, l[i].toInt());
-//        str.append(tmp);
-//    }
-//    ui->textEdit->setText(str);
 }
 
 void MainWindow::on_actionLog_triggered()
@@ -64,13 +57,26 @@ void MainWindow::on_actionLog_triggered()
             return;
         }
         ui->actionConnect->setDisabled(true);
-        //ui->actionLog->setDisabled(true);
         ui->actionLog->setStatusTip("Stop log");
-        m_dataThread.setFilename(m_logDlg->getLogName());
-        m_dataThread.stop(false);
-        m_dataThread.start();
+
+        // do get data
+        for (int j = 0; j < 1000; j++ ){
+            QVariant vaData = ui->mcbConn->dynamicCall("GetData(Qint64, Qint64)", 0, 1024 );
+            QString str = "";
+            QList<QVariant> l = vaData.toList();
+            for (int i = 0; i < l.length(); i++ ){
+                QString tmp = "";
+                tmp.sprintf("%d\t", l[i].toInt());
+                str.append(tmp);
+            }
+            m_log->logStep(str);
+        }
+
+
+
     }else{
-        m_dataThread.stop(true);
+        m_log->logStep("###END###");
+        m_log->save(m_logDlg->getLogName());
         ui->actionLog->setEnabled(true);
         ui->actionConnect->setEnabled(true);
         m_logDlg->clearLogName();

@@ -17,12 +17,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     logdialog.cpp \
-    getdatathread.cpp
+    getdatathread.cpp \
+    log.cpp
 
 HEADERS  += mainwindow.h \
     ui_mainwindow.h \
     logdialog.h \
-    getdatathread.h
+    getdatathread.h \
+    log.h
 
 FORMS    += mainwindow.ui \
     logdialog.ui

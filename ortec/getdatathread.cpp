@@ -38,20 +38,20 @@ void GetDataThread::run()
     QTextStream txtOutput(&f);
     txtOutput << "hi" << endl;
     while(!m_stop){
-//        QVariant vaData = m_mcb->dynamicCall("GetData(Qint64, Qint64)", 0, 100 );
-//        QList<QVariant> l = vaData.toList();
-//        for (int i = 0; i < l.length(); i++ ){
-//            txtOutput << l[i].toInt() << " ";
-//        }
-//        txtOutput << endl;
+        QVariant vaData = m_mcb->dynamicCall("GetData(Qint64, Qint64)", 0, 100 );
+        QList<QVariant> l = vaData.toList();
+        for (int i = 0; i < l.length(); i++ ){
+            txtOutput << l[i].toInt() << " ";
+        }
+        txtOutput << endl;
         temp++;
         sleep(1);
-
+        /*
         txtOutput << temp << " ";
         if(temp % 10 == 9){
             txtOutput << endl;
             emit TestSignal(QString::number(temp));
-        }
+        }*/
     }
 
     f.close();

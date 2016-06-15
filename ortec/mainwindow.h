@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <logdialog.h>
 #include <getdatathread.h>
+#include "log.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -30,6 +32,7 @@ private:
     LogDialog* m_logDlg;
     QString m_logName;
     GetDataThread m_dataThread;
+    Log * m_log;
 };
 
 #endif // MAINWINDOW_H
